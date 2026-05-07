@@ -9,18 +9,31 @@ import team.model.Canvas;
  * 
  */
 public class AppContent {
-	private Canvas canvas = new Canvas();
-	private Ex3Backend ex3Backend;
+	private final Canvas canvas;
+	private final Ex3Backend backend;
+
+	public AppContent() {
+		this.canvas = new Canvas();
+		this.backend = new Ex3Backend(canvas);
+	}
 
 	public void initContent() {
-		ex3Backend = new Ex3Backend();
 		canvas.initCanvas();
-	};
+	}
 
 	public Canvas canvas() {
 		return canvas;
-	}	
+	}
+
 	public Ex3Backend ex3Backend() {
-		return ex3Backend;
+		return backend;
+	}
+
+	public Canvas getCanvas() {
+		return canvas;
+	}
+
+	public Ex3Backend getBackend() {
+		return backend;
 	}
 }

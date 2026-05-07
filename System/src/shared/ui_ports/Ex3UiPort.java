@@ -15,7 +15,15 @@ public abstract class Ex3UiPort {
         return instance;
     }
 
-    // Your UI commands here, for example:
+    public abstract void setBackground(int worldWidth, int worldHeight, int floorY, String backgroundName);
+
+    public abstract void updatePlayer(int x, int y, int width, int height, double vx, double vy, boolean onGround);
+
+    public abstract void updateDoor(int x, int y, int width, int height);
+
+    public abstract void setWinState(boolean won);
+
+    // Legacy UI commands kept for compile compatibility.
     public abstract void addPoint(int id, double x, double y);
     public abstract void updatePoint(int id, double x, double y);
 

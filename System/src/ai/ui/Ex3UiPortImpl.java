@@ -1,28 +1,86 @@
 package ai.ui;
 
 import shared.ui_ports.Ex3UiPort;
+
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Ex3UiPortImpl extends Ex3UiPort {
-    private Map<String, Point> points;
-    private Map<String, Circle> circles;
-    private JPanel panel;
-    private Map<Integer, Timer> blinkTimers = new HashMap<>();
+    private final JPanel panel;
+    private final DrawingPanel drawingPanel;
+    private final Map<String, Point> points;
+    private final Map<String, Circle> circles;
+    private final Map<Integer, Timer> blinkTimers = new HashMap<>();
+
+    private PlayerView player;
+    private DoorView door;
+    private int worldWidth = 900;
+    private int worldHeight = 520;
+    private int floorY = 445;
+    private String backgroundName = "level1";
+    private boolean won = false;
+
+    public Ex3UiPortImpl(DrawingPanel drawingPanel) {
+        this.points = new HashMap<>();
+        this.circles = new HashMap<>();
+        this.panel = drawingPanel;
+        this.drawingPanel = drawingPanel;
+        this.drawingPanel.setGameUiPort(this);
+    }
 
     public Ex3UiPortImpl(Map<String, Point> points, Map<String, Circle> circles, JPanel panel) {
-        this.points = points;
-        this.circles = circles;
+        this.points = points != null ? points : new HashMap<>();
+        this.circles = circles != null ? circles : new HashMap<>();
         this.panel = panel;
+        this.drawingPanel = panel instanceof DrawingPanel ? (DrawingPanel) panel : null;
+        if (this.drawingPanel != null) {
+            this.drawingPanel.setGameUiPort(this);
+        }
+    }
+
+    @Override
+    public void setBackground(int worldWidth, int worldHeight, int floorY, String backgroundName) {
+        runOnEdt(() -> {
+            this.worldWidth = worldWidth;
+            this.worldHeight = worldHeight;
+            this.floorY = floorY;
+            this.backgroundName = backgroundName;
+            repaintPanel();
+        });
+    }
+
+    @Override
+    public void updatePlayer(int x, int y, int width, int height, double vx, double vy, boolean onGround) {
+        runOnEdt(() -> {
+            this.player = new PlayerView(x, y, width, height, vx, vy, onGround);
+            repaintPanel();
+        });
+    }
+
+    @Override
+    public void updateDoor(int x, int y, int width, int height) {
+        runOnEdt(() -> {
+            this.door = new DoorView(x, y, width, height);
+            repaintPanel();
+        });
+    }
+
+    @Override
+    public void setWinState(boolean won) {
+        runOnEdt(() -> {
+            this.won = won;
+            repaintPanel();
+        });
     }
 
     @Override
     public void addPoint(int pointId, double x, double y) {
         points.put(String.valueOf(pointId), new Point((int) x, (int) y));
-        panel.repaint();
+        repaintPanel();
     }
 
     @Override
@@ -31,14 +89,14 @@ public class Ex3UiPortImpl extends Ex3UiPort {
         if (point != null) {
             point.x = (int) x;
             point.y = (int) y;
-            panel.repaint();
+            repaintPanel();
         }
     }
 
     @Override
     public void addCircle(int circleId, double cx, double cy, double radius) {
         circles.put(String.valueOf(circleId), new Circle((int) cx, (int) cy, (int) radius));
-        panel.repaint();
+        repaintPanel();
     }
 
     @Override
@@ -46,7 +104,7 @@ public class Ex3UiPortImpl extends Ex3UiPort {
         Circle circle = circles.get(String.valueOf(circleId));
         if (circle != null) {
             circle.update((int) cx, (int) cy, (int) radius);
-            panel.repaint();
+            repaintPanel();
         }
     }
 
@@ -55,7 +113,7 @@ public class Ex3UiPortImpl extends Ex3UiPort {
         Point point = points.get(String.valueOf(pointId));
         if (point != null) {
             point.color = parseColor(color);
-            panel.repaint();
+            repaintPanel();
         }
     }
 
@@ -63,7 +121,6 @@ public class Ex3UiPortImpl extends Ex3UiPort {
     public void blinkCircle(int circleId, int count) {
         Circle circle = circles.get(String.valueOf(circleId));
         if (circle != null) {
-            // Cancel any existing blink timer for this circle
             Timer existingTimer = blinkTimers.get(circleId);
             if (existingTimer != null) {
                 existingTimer.stop();
@@ -75,22 +132,53 @@ public class Ex3UiPortImpl extends Ex3UiPort {
             Timer blinkTimer = new Timer(250, e -> {
                 circle.isBlinking = !circle.isBlinking;
                 blinkCount[0]++;
-                panel.repaint();
+                repaintPanel();
 
-                // Stop blinking after count blinks
                 if (blinkCount[0] >= count * 2) {
                     ((Timer) e.getSource()).stop();
                     circle.isBlinking = false;
                     blinkTimers.remove(circleId);
-                    panel.repaint();
+                    repaintPanel();
                 }
             });
             blinkTimer.setRepeats(true);
             blinkTimer.start();
             blinkTimers.put(circleId, blinkTimer);
-
-            panel.repaint();
+            repaintPanel();
         }
+    }
+
+    @Override
+    public void log(String message) {
+        System.out.println(message);
+    }
+
+    public PlayerView getPlayer() {
+        return player;
+    }
+
+    public DoorView getDoor() {
+        return door;
+    }
+
+    public int getWorldWidth() {
+        return worldWidth;
+    }
+
+    public int getWorldHeight() {
+        return worldHeight;
+    }
+
+    public int getFloorY() {
+        return floorY;
+    }
+
+    public String getBackgroundName() {
+        return backgroundName;
+    }
+
+    public boolean isWon() {
+        return won;
     }
 
     private Color parseColor(String colorStr) {
@@ -120,8 +208,17 @@ public class Ex3UiPortImpl extends Ex3UiPort {
         }
     }
 
-    @Override
-    public void log(String message) {
-        System.out.println(message);
+    private void repaintPanel() {
+        if (panel != null) {
+            panel.repaint();
+        }
+    }
+
+    private void runOnEdt(Runnable action) {
+        if (SwingUtilities.isEventDispatchThread()) {
+            action.run();
+        } else {
+            SwingUtilities.invokeLater(action);
+        }
     }
 }

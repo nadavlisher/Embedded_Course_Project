@@ -10,54 +10,44 @@ public class Ex3Router implements SubRouter {
     private final Ex3Backend backend;
 
     public Ex3Router() {
-        this.backend = App.content().ex3Backend();
+		this.backend = App.content().getBackend();
     }
 
     @Override
     public Object route(String subPath, Params p) {
-        // Uncomment next line to see routing commands in console
-        // System.out.println("Routing Ex3: " + subPath + " with params " + p);
-        switch (subPath) {
+        String route = normalizeRoute(subPath);
 
-            // UI calls once on startup
+        switch (route) {
             case "/start":
-                backend.startScenario();
+                backend.startGame();
                 return null;
-
-            // UI input: drag point
-            case "/point/move": {
-                int id = p.getInt(0);
-                double x = p.getDouble(1);
-                double y = p.getDouble(2);
-                backend.movePoint(id, x, y);
+            case "/tick":
+                backend.tick();
                 return null;
-            }
-
-            // UI input: drag circle
-            case "/circle/move": {
-                int id = p.getInt(0);
-                double cx = p.getDouble(1);
-                double cy = p.getDouble(2);
-                backend.moveCircle(id, cx, cy);
+            case "/player/left":
+                backend.setMoveLeft(p.getBoolean(0));
                 return null;
-            }
-
-            // UI input: resize circle
-            case "/circle/radius": {
-                int id = p.getInt(0);
-                double r = p.getDouble(1);
-                backend.setCircleRadius(id, r);
+            case "/player/right":
+                backend.setMoveRight(p.getBoolean(0));
                 return null;
-            }
-
-            // UI input: resize circle
-            case "/periodic": {
-                backend.toggleRunPeriodic();
+            case "/player/jump":
+                backend.jump();
                 return null;
-            }
-
             default:
-                throw new RuntimeException("Unknown ex3 route: " + subPath);
+				System.err.println("Unknown ex3 route: " + route + " (raw: " + subPath + ")");
+				throw new RuntimeException("Unknown ex3 route: " + route);
         }
+    }
+
+    private String normalizeRoute(String subPath) {
+        if (subPath == null || subPath.trim().isEmpty()) {
+            return "/";
+        }
+
+        String route = subPath.trim();
+        if (!route.startsWith("/")) {
+            route = "/" + route;
+        }
+        return route;
     }
 }
