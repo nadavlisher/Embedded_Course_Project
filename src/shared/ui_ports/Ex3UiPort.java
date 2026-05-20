@@ -27,14 +27,5 @@ public abstract class Ex3UiPort {
 
     public abstract void setWinState(boolean won);
 
-    // Legacy UI commands kept for compile compatibility with the old circle/point demo.
-    public abstract void addPoint(int id, double x, double y);
-    public abstract void updatePoint(int id, double x, double y);
-
-    public abstract void addCircle(int id, double cx, double cy, double r);
-    public abstract void updateCircle(int id, double cx, double cy, double r);
-
-    public abstract void paintPoint(int pointId, String colorName);
-    public abstract void blinkCircle(int circleId, int times);
     public abstract void log(String message);
 }
