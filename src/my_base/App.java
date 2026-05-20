@@ -1,7 +1,6 @@
 package my_base;
 
 import ai.ui.Ui;
-import base.PeriodicScheduler;
 import shared.MainRouter;
 import shared.routers.Ex3Router;
 
@@ -31,10 +30,5 @@ public class App {
         ui.setUiPorts();
         registerRouters();
         ui.start(mainRouter);
-
-        PeriodicScheduler scheduler = new PeriodicScheduler();
-        scheduler.setPeriodicLoop(new MyPeriodicLoop());
-        scheduler.setPeriodicInterval(30); // Smoother game loop than the original 300 ms.
-        scheduler.start();
     }
 }

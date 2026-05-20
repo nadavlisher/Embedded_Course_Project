@@ -10,23 +10,14 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
-import java.util.HashMap;
-import java.util.Map;
 
 public class DrawingPanel extends JPanel {
-    private final Map<String, Point> points;
-    private final Map<String, Circle> circles;
     private final MainRouter mainRouter;
     private Ex3UiPortImpl gameUiPort;
 
     public DrawingPanel(MainRouter mainRouter) {
-        this(new HashMap<>(), new HashMap<>(), mainRouter);
-    }
-
-    public DrawingPanel(Map<String, Point> points, Map<String, Circle> circles, MainRouter mainRouter) {
-        this.points = points != null ? points : new HashMap<>();
-        this.circles = circles != null ? circles : new HashMap<>();
         this.mainRouter = mainRouter;
         setupKeyboard();
     }
@@ -69,7 +60,7 @@ public class DrawingPanel extends JPanel {
     }
 
     private void drawDoor(Graphics2D g2) {
-        DoorView door = gameUiPort.getDoor();
+        Rectangle door = gameUiPort.getDoor();
 
         if (door == null) {
             return;
@@ -109,7 +100,7 @@ public class DrawingPanel extends JPanel {
     }
 
     private void drawPlayer(Graphics2D g2) {
-        PlayerView player = gameUiPort.getPlayer();
+        Rectangle player = gameUiPort.getPlayer();
 
         if (player == null) {
             return;

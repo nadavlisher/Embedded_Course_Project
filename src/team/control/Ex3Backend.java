@@ -115,24 +115,4 @@ public class Ex3Backend {
 
         System.out.println(message);
     }
-
-    // Legacy methods retained for compile compatibility with the old circle/point demo.
-    public void startScenario() {
-        startGame();
-    }
-
-    public void movePoint(int pointId, double x, double y) {
-    }
-
-    public void moveCircle(int circleId, double cx, double cy) {
-    }
-
-    public void setCircleRadius(int circleId, double r) {
-    }
-
-    public void moveCircle2(double dx, double dy) {
-    }
-
-    public void toggleRunPeriodic() {
-    }
 }
