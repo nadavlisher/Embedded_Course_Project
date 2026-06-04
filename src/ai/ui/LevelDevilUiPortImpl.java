@@ -1,12 +1,12 @@
 package ai.ui;
 
-import shared.ui_ports.Ex3UiPort;
+import shared.ui_ports.LevelDevilUiPort;
 
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import java.awt.Rectangle;
 
-public class Ex3UiPortImpl extends Ex3UiPort {
+public class LevelDevilUiPortImpl extends LevelDevilUiPort {
     private final JPanel panel;
     private final DrawingPanel drawingPanel;
 
@@ -20,7 +20,7 @@ public class Ex3UiPortImpl extends Ex3UiPort {
     private boolean won = false;
     private int attemptCount = 1;
 
-    public Ex3UiPortImpl(DrawingPanel drawingPanel) {
+    public LevelDevilUiPortImpl(DrawingPanel drawingPanel) {
         this.panel = drawingPanel;
         this.drawingPanel = drawingPanel;
         this.drawingPanel.setGameUiPort(this);

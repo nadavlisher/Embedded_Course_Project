@@ -3,13 +3,13 @@ package shared.routers;
 import base.Params;
 import base.SubRouter;
 import my_base.App;
-import team.control.Ex3Backend;
+import team.control.LevelDevilBackend;
 
-public class Ex3Router implements SubRouter {
+public class LevelDevilRouter implements SubRouter {
 
-    private final Ex3Backend backend;
+    private final LevelDevilBackend backend;
 
-    public Ex3Router() {
+    public LevelDevilRouter() {
 		this.backend = App.content().getBackend();
     }
 
@@ -21,21 +21,26 @@ public class Ex3Router implements SubRouter {
             case "/start":
                 backend.startGame();
                 return null;
+
             case "/tick":
                 backend.tick();
                 return null;
+
             case "/player/left":
                 backend.setMoveLeft(p.getBoolean(0));
                 return null;
+
             case "/player/right":
                 backend.setMoveRight(p.getBoolean(0));
                 return null;
+
             case "/player/jump":
                 backend.jump();
                 return null;
+                
             default:
-				System.err.println("Unknown ex3 route: " + route + " (raw: " + subPath + ")");
-				throw new RuntimeException("Unknown ex3 route: " + route);
+				System.err.println("Unknown Level Devil route: " + route + " (raw: " + subPath + ")");
+				throw new RuntimeException("Unknown Level Devil route: " + route);
         }
     }
 

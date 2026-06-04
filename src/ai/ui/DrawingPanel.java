@@ -15,14 +15,14 @@ import java.awt.event.ActionEvent;
 
 public class DrawingPanel extends JPanel {
     private final MainRouter mainRouter;
-    private Ex3UiPortImpl gameUiPort;
+    private LevelDevilUiPortImpl gameUiPort;
 
     public DrawingPanel(MainRouter mainRouter) {
         this.mainRouter = mainRouter;
         setupKeyboard();
     }
 
-    public void setGameUiPort(Ex3UiPortImpl gameUiPort) {
+    public void setGameUiPort(LevelDevilUiPortImpl gameUiPort) {
         this.gameUiPort = gameUiPort;
     }
 
@@ -133,19 +133,19 @@ public class DrawingPanel extends JPanel {
     private void setupKeyboard() {
         setFocusable(true);
 
-        bindBooleanKey("pressed LEFT", "/ex3/player/left", true);
-        bindBooleanKey("released LEFT", "/ex3/player/left", false);
-        bindBooleanKey("pressed A", "/ex3/player/left", true);
-        bindBooleanKey("released A", "/ex3/player/left", false);
+        bindBooleanKey("pressed LEFT", "/level-devil/player/left", true);
+        bindBooleanKey("released LEFT", "/level-devil/player/left", false);
+        bindBooleanKey("pressed A", "/level-devil/player/left", true);
+        bindBooleanKey("released A", "/level-devil/player/left", false);
 
-        bindBooleanKey("pressed RIGHT", "/ex3/player/right", true);
-        bindBooleanKey("released RIGHT", "/ex3/player/right", false);
-        bindBooleanKey("pressed D", "/ex3/player/right", true);
-        bindBooleanKey("released D", "/ex3/player/right", false);
+        bindBooleanKey("pressed RIGHT", "/level-devil/player/right", true);
+        bindBooleanKey("released RIGHT", "/level-devil/player/right", false);
+        bindBooleanKey("pressed D", "/level-devil/player/right", true);
+        bindBooleanKey("released D", "/level-devil/player/right", false);
 
-        bindSimpleKey("pressed SPACE", "/ex3/player/jump");
-        bindSimpleKey("pressed W", "/ex3/player/jump");
-        bindSimpleKey("pressed UP", "/ex3/player/jump");
+        bindSimpleKey("pressed SPACE", "/level-devil/player/jump");
+        bindSimpleKey("pressed W", "/level-devil/player/jump");
+        bindSimpleKey("pressed UP", "/level-devil/player/jump");
     }
 
     private void bindBooleanKey(String keyStrokeText, String route, boolean pressed) {

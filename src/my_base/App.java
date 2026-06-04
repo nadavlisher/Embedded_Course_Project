@@ -2,7 +2,7 @@ package my_base;
 
 import ai.ui.Ui;
 import shared.MainRouter;
-import shared.routers.Ex3Router;
+import shared.routers.LevelDevilRouter;
 
 public class App {
 
@@ -12,7 +12,7 @@ public class App {
 
     // Register all routers here.
     private static void registerRouters() {
-        mainRouter.addRouter("ex3", new Ex3Router());
+        mainRouter.addRouter("level-devil", new LevelDevilRouter());
     }
 
     // Allows all classes in the system to access content entities.

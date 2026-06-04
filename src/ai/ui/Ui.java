@@ -4,7 +4,7 @@ import javax.swing.*;
 
 import my_base.App;
 import shared.MainRouter;
-import shared.ui_ports.Ex3UiPort;
+import shared.ui_ports.LevelDevilUiPort;
 
 import java.awt.*;
 
@@ -13,7 +13,7 @@ public class Ui {
 
     private MainRouter mainRouter;
     private DrawingPanel drawingPanel;
-    private Ex3UiPortImpl uiInstance;
+    private LevelDevilUiPortImpl uiInstance;
     private Timer gameLoopTimer;
 
     public void setUiPorts() {
@@ -27,7 +27,7 @@ public class Ui {
         startGameLoop();
         
         SwingUtilities.invokeLater(() -> {
-            mainRouter.route("/ex3/start", base.Params.of());
+            mainRouter.route("/level-devil/start", base.Params.of());
         });
     }
 
@@ -36,12 +36,12 @@ public class Ui {
             return;
         }
 
-        gameLoopTimer = new Timer(GAME_LOOP_MS, e -> mainRouter.route("/ex3/tick", base.Params.of()));
+        gameLoopTimer = new Timer(GAME_LOOP_MS, e -> mainRouter.route("/level-devil/tick", base.Params.of()));
         gameLoopTimer.start();
     }
 
     private void createAndShowWindow() {
-        JFrame frame = new JFrame("UI Window");
+        JFrame frame = new JFrame("Level Devil");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);  // Fullscreen
         frame.setLayout(new BorderLayout());
@@ -49,8 +49,8 @@ public class Ui {
         drawingPanel = new DrawingPanel(mainRouter);
         frame.add(drawingPanel, BorderLayout.CENTER);
 
-        uiInstance = new Ex3UiPortImpl(drawingPanel);
-        Ex3UiPort.setInstance(uiInstance);
+        uiInstance = new LevelDevilUiPortImpl(drawingPanel);
+        LevelDevilUiPort.setInstance(uiInstance);
 
         frame.setVisible(true);
         SwingUtilities.invokeLater(() -> drawingPanel.requestFocusInWindow());

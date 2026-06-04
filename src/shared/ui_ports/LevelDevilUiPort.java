@@ -1,17 +1,17 @@
 package shared.ui_ports;
 
-public abstract class Ex3UiPort {
+public abstract class LevelDevilUiPort {
 
-    private static Ex3UiPort instance;
+    private static LevelDevilUiPort instance;
 
-    public static void setInstance(Ex3UiPort ui) {
-        if (ui == null) throw new IllegalArgumentException("Ex3UiPort instance cannot be null");
-        if (instance != null) throw new IllegalStateException("Ex3UiPort instance already set");
+    public static void setInstance(LevelDevilUiPort ui) {
+        if (ui == null) throw new IllegalArgumentException("LevelDevilUiPort instance cannot be null");
+        if (instance != null) throw new IllegalStateException("LevelDevilUiPort instance already set");
         instance = ui;
     }
 
-    public static Ex3UiPort getInstance() {
-        if (instance == null) throw new IllegalStateException("Ex3UiPort instance not set yet");
+    public static LevelDevilUiPort getInstance() {
+        if (instance == null) throw new IllegalStateException("LevelDevilUiPort instance not set yet");
         return instance;
     }
 

@@ -1,6 +1,6 @@
 package my_base;
 
-import team.control.Ex3Backend;
+import team.control.LevelDevilBackend;
 import team.model.Canvas;
 
 /*
@@ -10,11 +10,11 @@ import team.model.Canvas;
  */
 public class AppContent {
 	private final Canvas canvas;
-	private final Ex3Backend backend;
+	private final LevelDevilBackend backend;
 
 	public AppContent() {
 		this.canvas = new Canvas();
-		this.backend = new Ex3Backend(canvas);
+		this.backend = new LevelDevilBackend(canvas);
 	}
 
 	public void initContent() {
@@ -25,7 +25,7 @@ public class AppContent {
 		return canvas;
 	}
 
-	public Ex3Backend ex3Backend() {
+	public LevelDevilBackend levelDevilBackend() {
 		return backend;
 	}
 
@@ -33,7 +33,7 @@ public class AppContent {
 		return canvas;
 	}
 
-	public Ex3Backend getBackend() {
+	public LevelDevilBackend getBackend() {
 		return backend;
 	}
 }

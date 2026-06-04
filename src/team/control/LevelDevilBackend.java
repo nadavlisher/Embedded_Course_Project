@@ -1,30 +1,30 @@
 package team.control;
 
-import shared.ui_ports.Ex3UiPort;
+import shared.ui_ports.LevelDevilUiPort;
 import team.model.Canvas;
 import team.model.Door;
 import team.model.GameLevel;
 import team.model.Player;
 import team.model.Spike;
 
-public class Ex3Backend {
+public class LevelDevilBackend {
     private final Canvas canvas;
-    private Ex3UiPort ui;
+    private LevelDevilUiPort ui;
 
     private boolean started;
     private boolean winMessageAlreadySent;
 
-    public Ex3Backend() {
+    public LevelDevilBackend() {
         this(new Canvas());
     }
 
-    public Ex3Backend(Canvas canvas) {
+    public LevelDevilBackend(Canvas canvas) {
         this.canvas = canvas;
         this.started = false;
         this.winMessageAlreadySent = false;
     }
 
-    public void setUiPort(Ex3UiPort ui) {
+    public void setUiPort(LevelDevilUiPort ui) {
         this.ui = ui;
     }
 
