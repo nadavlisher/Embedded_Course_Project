@@ -1,87 +1,43 @@
 package team.model;
 
 /**
- * The controllable player character.
+ * The little devil the player controls.
  *
- * Responsibility:
- * - Hold player position and velocity.
- * - Apply simple platformer physics: horizontal movement, gravity and jump.
- * - Keep the player inside world bounds and on the floor.
+ * Mutable kinematic body: position, velocity, grounded flag and facing.
+ * PlayerController writes the velocity, CollisionController integrates and
+ * resolves the position against the world.
  */
-public class Player extends GameObject {
-    private double vx;
-    private double vy;
+public class Player {
 
-    private boolean onGround;
+    private double x, y;
+    private final double width, height;
+    private double vx, vy;
+    private boolean onGround = false;
+    private int facing = 1; // +1 right, -1 left
 
-    private static final double MOVE_SPEED = 12.0;
-    private static final double JUMP_SPEED = -13.0;
-    private static final double GRAVITY = 0.75;
-    private static final double MAX_FALL_SPEED = 18.0;
-
-    public Player(double x, double y, int width, int height) {
-        super(x, y, width, height);
-        this.vx = 0;
-        this.vy = 0;
-        this.onGround = false;
+    public Player(double x, double y, double width, double height) {
+        this.x = x; this.y = y; this.width = width; this.height = height;
     }
 
-    public void tick(boolean moveLeft, boolean moveRight, int floorY, int worldWidth) {
-        vx = 0;
+    public double getX()      { return x; }
+    public double getY()      { return y; }
+    public double getWidth()  { return width; }
+    public double getHeight() { return height; }
+    public double getVx()     { return vx; }
+    public double getVy()     { return vy; }
+    public boolean isOnGround(){ return onGround; }
+    public int getFacing()    { return facing; }
 
-        if (moveLeft) {
-            vx -= MOVE_SPEED;
-        }
+    public void setX(double x) { this.x = x; }
+    public void setY(double y) { this.y = y; }
+    public void setVx(double vx){ this.vx = vx; if (vx > 0) facing = 1; else if (vx < 0) facing = -1; }
+    public void setVy(double vy){ this.vy = vy; }
+    public void setOnGround(boolean v) { this.onGround = v; }
+    public void setFacing(int f){ this.facing = f; }
 
-        if (moveRight) {
-            vx += MOVE_SPEED;
-        }
+    public void setPosition(double x, double y) { this.x = x; this.y = y; }
 
-        // Gravity is applied every frame. vy is capped so the fall does not become uncontrollable.
-        vy += GRAVITY;
-        if (vy > MAX_FALL_SPEED) {
-            vy = MAX_FALL_SPEED;
-        }
-
-        x += vx;
-        y += vy;
-
-        // Keep the player inside the horizontal world boundaries.
-        if (x < 0) {
-            x = 0;
-        }
-
-        if (x + width > worldWidth) {
-            x = worldWidth - width;
-        }
-
-        // Floor collision.
-        if (y + height >= floorY) {
-            y = floorY - height;
-            vy = 0;
-            onGround = true;
-        } else {
-            onGround = false;
-        }
-    }
-
-    public void jump() {
-        // The player can jump only when standing on the floor.
-        if (onGround) {
-            vy = JUMP_SPEED;
-            onGround = false;
-        }
-    }
-
-    public double getVx() {
-        return vx;
-    }
-
-    public double getVy() {
-        return vy;
-    }
-
-    public boolean isOnGround() {
-        return onGround;
+    public HitBounds getBounds() {
+        return new HitBounds(x, y, width, height);
     }
 }

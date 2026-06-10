@@ -1,48 +1,33 @@
 package team.model;
 
+import base.IdentifiedObject;
+
 /**
- * A dynamic trap object.
- *
- * Story implemented for Assignment 5:
- * When the player reaches a hidden trigger zone, the spike appears.
- * If the player touches it after it becomes dangerous, the level restarts.
+ * A lethal spike. Touching its (slightly inset) hit-box costs the player a
+ * life. The inset makes near-misses survivable, which keeps a troll game feeling
+ * "hard but fair" rather than arbitrary.
  */
-public class Spike extends GameObject {
-    private final int triggerX;
-    private boolean visible;
-    private boolean dangerous;
+public class Spike extends IdentifiedObject {
 
-    public Spike(int x, int y, int width, int height, int triggerX) {
-        super(x, y, width, height);
-        this.triggerX = triggerX;
-        reset();
+    private final double x, y, width, height;
+    private final SpikeDir dir;
+
+    public Spike(int id, double x, double y, double width, double height, SpikeDir dir) {
+        super(id);
+        this.x = x; this.y = y; this.width = width; this.height = height;
+        this.dir = dir;
     }
 
-    /**
-     * Updates the trap state according to the player's location.
-     * This is the exact point where the dynamic behavior enters the model.
-     */
-    public void update(Player player) {
-        if (!visible && player.getX() >= triggerX) {
-            visible = true;
-            dangerous = true;
-        }
-    }
+    public double getX()    { return x; }
+    public double getY()    { return y; }
+    public double getWidth(){ return width; }
+    public double getHeight(){ return height; }
+    public SpikeDir getDir(){ return dir; }
 
-    public void reset() {
-        visible = false;
-        dangerous = false;
-    }
-
-    public boolean isVisible() {
-        return visible;
-    }
-
-    public boolean isDangerous() {
-        return dangerous;
-    }
-
-    public int getTriggerX() {
-        return triggerX;
+    /** Lethal area, inset from the drawn triangle so grazing the edge is safe. */
+    public HitBounds getBounds() {
+        double insetX = Math.min(6, width  / 3.0);
+        double insetY = Math.min(6, height / 3.0);
+        return new HitBounds(x + insetX, y + insetY, width - 2 * insetX, height - 2 * insetY);
     }
 }
