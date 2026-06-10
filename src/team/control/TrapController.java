@@ -1,16 +1,16 @@
-package leveldevil.control;
+package team.control;
 
-import leveldevil.model.Arena;
-import leveldevil.model.Door;
-import leveldevil.model.HitBounds;
-import leveldevil.model.Mover;
-import leveldevil.model.MoverKind;
-import leveldevil.model.Player;
-import leveldevil.model.Spike;
-import leveldevil.model.SpikeDir;
-import leveldevil.model.Tile;
-import leveldevil.model.Trap;
-import leveldevil.model.IdGenerator;
+import team.model.Arena;
+import team.model.Door;
+import team.model.HitBounds;
+import team.model.Mover;
+import team.model.MoverKind;
+import team.model.Player;
+import team.model.Spike;
+import team.model.SpikeDir;
+import team.model.Tile;
+import team.model.Trap;
+import team.model.IdGenerator;
 import shared.ui_ports.LevelDevilUiPort;
 
 import java.util.ArrayList;

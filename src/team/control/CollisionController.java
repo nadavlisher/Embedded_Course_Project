@@ -1,12 +1,12 @@
-package leveldevil.control;
+package team.control;
 
-import leveldevil.model.Arena;
-import leveldevil.model.Door;
-import leveldevil.model.HitBounds;
-import leveldevil.model.Mover;
-import leveldevil.model.Player;
-import leveldevil.model.Spike;
-import leveldevil.model.Tile;
+import team.model.Arena;
+import team.model.Door;
+import team.model.HitBounds;
+import team.model.Mover;
+import team.model.Player;
+import team.model.Spike;
+import team.model.Tile;
 
 import java.util.ArrayList;
 import java.util.List;

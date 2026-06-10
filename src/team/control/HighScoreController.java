@@ -1,8 +1,8 @@
-package leveldevil.control;
+package team.control;
 
 import db.ExcelDB;
 import db.ExcelTable;
-import leveldevil.model.HighScore;
+import team.model.HighScore;
 
 import java.io.File;
 import java.util.ArrayList;

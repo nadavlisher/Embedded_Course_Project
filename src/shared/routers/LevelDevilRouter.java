@@ -3,14 +3,14 @@ package shared.routers;
 import base.Params;
 import base.SubRouter;
 import my_base.App;
-import team.control.LevelDevilBackend;
+import team.domain.LevelDevilBackend;
 
 public class LevelDevilRouter implements SubRouter {
 
     private final LevelDevilBackend backend;
 
     public LevelDevilRouter() {
-		this.backend = App.content().getBackend();
+		this.backend = App.content().levelDevilBackend();
     }
 
     @Override

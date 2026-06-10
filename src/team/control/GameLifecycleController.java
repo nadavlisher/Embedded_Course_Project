@@ -1,8 +1,8 @@
-package leveldevil.control;
+package team.control;
 
-import leveldevil.model.Arena;
-import leveldevil.model.GameState;
-import leveldevil.model.GameStatus;
+import team.model.Arena;
+import team.model.GameState;
+import team.model.GameStatus;
 import shared.ui_ports.LevelDevilUiPort;
 
 /**

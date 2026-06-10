@@ -1,7 +1,7 @@
-package leveldevil.control;
+package team.control;
 
-import leveldevil.model.Arena;
-import leveldevil.model.Player;
+import team.model.Arena;
+import team.model.Player;
 
 /**
  * Owns the player's intent and per-step kinematics: horizontal movement,

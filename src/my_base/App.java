@@ -22,6 +22,10 @@ public class App {
         return content;
     }
 
+    public static MainRouter router() {
+        return mainRouter;
+    }
+
     public static Ui UI() {
         return ui;
     }

@@ -1,31 +1,20 @@
-package leveldevil.domain;
+package team.domain;
 
-import leveldevil.control.AudioController;
-import leveldevil.control.CollisionController;
-import leveldevil.control.GameLifecycleController;
-import leveldevil.control.HighScoreController;
-import leveldevil.control.LevelController;
-import leveldevil.control.PlayerController;
-import leveldevil.control.TrapController;
-import leveldevil.model.Arena;
-import leveldevil.model.GameState;
-import leveldevil.model.GameStatus;
-import leveldevil.model.IdGenerator;
-import leveldevil.model.Player;
+import team.control.AudioController;
+import team.control.CollisionController;
+import team.control.GameLifecycleController;
+import team.control.HighScoreController;
+import team.control.LevelController;
+import team.control.PlayerController;
+import team.control.TrapController;
+import team.model.Arena;
+import team.model.GameState;
+import team.model.GameStatus;
+import team.model.IdGenerator;
+import team.model.Player;
 import shared.ui_ports.LevelDevilUiPort;
 
-/**
- * Backend facade for the Level Devil game.
- *
- * Owns the whole model and every controller; all router calls (keyboard AND
- * mouse) land here and are delegated. The UI is touched only through the
- * abstract {@link LevelDevilUiPort}.
- *
- * Beyond the core platformer it drives the menu screens: the level-progression
- * map (replay any solved level, never skip ahead), the arcade high-score table
- * (Excel-persisted, name entry at game end, ranked by level reached then
- * arrival order), a sound mute toggle, and full mouse navigation of the menus.
- */
+
 public class LevelDevilBackend {
 
     public static final int ARENA_WIDTH  = 960;

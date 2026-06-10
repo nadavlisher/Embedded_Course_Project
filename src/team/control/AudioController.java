@@ -1,4 +1,4 @@
-package leveldevil.control;
+package team.control;
 
 import shared.ui_ports.LevelDevilUiPort;
 

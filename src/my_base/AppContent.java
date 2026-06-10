@@ -1,7 +1,6 @@
 package my_base;
 
-import team.control.LevelDevilBackend;
-import team.model.Canvas;
+import team.domain.LevelDevilBackend;
 
 /*
  * This class should hold the content of the system, i.e., all elements that are
