@@ -15,14 +15,14 @@ import java.awt.event.ActionEvent;
 
 public class DrawingPanel extends JPanel {
     private final MainRouter mainRouter;
-    private Ex3UiPortImpl gameUiPort;
+    private UiPortImpl gameUiPort;
 
     public DrawingPanel(MainRouter mainRouter) {
         this.mainRouter = mainRouter;
         setupKeyboard();
     }
 
-    public void setGameUiPort(Ex3UiPortImpl gameUiPort) {
+    public void setGameUiPort(UiPortImpl gameUiPort) {
         this.gameUiPort = gameUiPort;
     }
 

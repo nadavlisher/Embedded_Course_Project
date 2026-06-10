@@ -6,7 +6,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import java.awt.Rectangle;
 
-public class Ex3UiPortImpl extends Ex3UiPort {
+public class UiPortImpl extends Ex3UiPort {
     private final JPanel panel;
     private final DrawingPanel drawingPanel;
 
@@ -20,7 +20,7 @@ public class Ex3UiPortImpl extends Ex3UiPort {
     private boolean won = false;
     private int attemptCount = 1;
 
-    public Ex3UiPortImpl(DrawingPanel drawingPanel) {
+    public UiPortImpl(DrawingPanel drawingPanel) {
         this.panel = drawingPanel;
         this.drawingPanel = drawingPanel;
         this.drawingPanel.setGameUiPort(this);

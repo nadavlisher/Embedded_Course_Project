@@ -7,18 +7,18 @@ import team.model.GameLevel;
 import team.model.Player;
 import team.model.Spike;
 
-public class Ex3Backend {
+public class Backend {
     private final Canvas canvas;
     private Ex3UiPort ui;
 
     private boolean started;
     private boolean winMessageAlreadySent;
 
-    public Ex3Backend() {
+    public Backend() {
         this(new Canvas());
     }
 
-    public Ex3Backend(Canvas canvas) {
+    public Backend(Canvas canvas) {
         this.canvas = canvas;
         this.started = false;
         this.winMessageAlreadySent = false;

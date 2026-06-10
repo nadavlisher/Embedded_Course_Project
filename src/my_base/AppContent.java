@@ -1,6 +1,6 @@
 package my_base;
 
-import team.control.Ex3Backend;
+import team.control.Backend;
 import team.model.Canvas;
 
 /*
@@ -10,11 +10,11 @@ import team.model.Canvas;
  */
 public class AppContent {
 	private final Canvas canvas;
-	private final Ex3Backend backend;
+	private final Backend backend;
 
 	public AppContent() {
 		this.canvas = new Canvas();
-		this.backend = new Ex3Backend(canvas);
+		this.backend = new Backend(canvas);
 	}
 
 	public void initContent() {
@@ -25,7 +25,7 @@ public class AppContent {
 		return canvas;
 	}
 
-	public Ex3Backend ex3Backend() {
+	public Backend ex3Backend() {
 		return backend;
 	}
 
@@ -33,7 +33,7 @@ public class AppContent {
 		return canvas;
 	}
 
-	public Ex3Backend getBackend() {
+	public Backend getBackend() {
 		return backend;
 	}
 }

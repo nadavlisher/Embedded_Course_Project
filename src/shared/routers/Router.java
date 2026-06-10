@@ -3,13 +3,13 @@ package shared.routers;
 import base.Params;
 import base.SubRouter;
 import my_base.App;
-import team.control.Ex3Backend;
+import team.control.Backend;
 
-public class Ex3Router implements SubRouter {
+public class Router implements SubRouter {
 
-    private final Ex3Backend backend;
+    private final Backend backend;
 
-    public Ex3Router() {
+    public Router() {
 		this.backend = App.content().getBackend();
     }
 

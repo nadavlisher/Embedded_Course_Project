@@ -13,7 +13,7 @@ public class Ui {
 
     private MainRouter mainRouter;
     private DrawingPanel drawingPanel;
-    private Ex3UiPortImpl uiInstance;
+    private UiPortImpl uiInstance;
     private Timer gameLoopTimer;
 
     public void setUiPorts() {
@@ -49,7 +49,7 @@ public class Ui {
         drawingPanel = new DrawingPanel(mainRouter);
         frame.add(drawingPanel, BorderLayout.CENTER);
 
-        uiInstance = new Ex3UiPortImpl(drawingPanel);
+        uiInstance = new UiPortImpl(drawingPanel);
         Ex3UiPort.setInstance(uiInstance);
 
         frame.setVisible(true);
