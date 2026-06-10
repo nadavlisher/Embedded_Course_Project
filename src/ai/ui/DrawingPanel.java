@@ -11,6 +11,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 
 public class DrawingPanel extends JPanel {
@@ -30,18 +31,31 @@ public class DrawingPanel extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        Graphics2D g2 = (Graphics2D) g;
+        Graphics2D g2 = (Graphics2D) g.create();
 
-        if (gameUiPort == null) {
-            return;
+        try {
+            if (gameUiPort == null) {
+                return;
+            }
+
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            scaleToPanel(g2);
+
+            drawBackground(g2);
+            drawDoor(g2);
+            drawSpike(g2);
+            drawPlayer(g2);
+            drawHud(g2);
+            drawWinText(g2);
+        } finally {
+            g2.dispose();
         }
+    }
 
-        drawBackground(g2);
-        drawDoor(g2);
-        drawSpike(g2);
-        drawPlayer(g2);
-        drawHud(g2);
-        drawWinText(g2);
+    private void scaleToPanel(Graphics2D g2) {
+        double scaleX = getWidth() / (double) gameUiPort.getWorldWidth();
+        double scaleY = getHeight() / (double) gameUiPort.getWorldHeight();
+        g2.scale(scaleX, scaleY);
     }
 
     private void drawBackground(Graphics2D g2) {

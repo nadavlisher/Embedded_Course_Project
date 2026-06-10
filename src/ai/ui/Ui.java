@@ -43,7 +43,7 @@ public class Ui {
     private void createAndShowWindow() {
         JFrame frame = new JFrame("UI Window");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);  // Fullscreen
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setLayout(new BorderLayout());
 
         drawingPanel = new DrawingPanel(mainRouter);
