@@ -55,3 +55,5 @@ public abstract class LevelDevilUiPort {
     public abstract void flashDeath();
     public abstract void playSound(String soundName);
     public abstract void log(String message);
+
+}
