@@ -9,31 +9,14 @@ import team.model.Canvas;
  * 
  */
 public class AppContent {
-	private final Canvas canvas;
-	private final LevelDevilBackend backend;
 
-	public AppContent() {
-		this.canvas = new Canvas();
-		this.backend = new LevelDevilBackend(canvas);
-	}
+    private LevelDevilBackend levelDevilBackend;
 
-	public void initContent() {
-		canvas.initCanvas();
-	}
+    public void initContent() {
+        levelDevilBackend = new LevelDevilBackend();
+    }
 
-	public Canvas canvas() {
-		return canvas;
-	}
-
-	public LevelDevilBackend levelDevilBackend() {
-		return backend;
-	}
-
-	public Canvas getCanvas() {
-		return canvas;
-	}
-
-	public LevelDevilBackend getBackend() {
-		return backend;
-	}
+    public LevelDevilBackend levelDevilBackend() {
+        return levelDevilBackend;
+    }
 }

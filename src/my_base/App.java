@@ -4,6 +4,8 @@ import ai.ui.Ui;
 import shared.MainRouter;
 import shared.routers.LevelDevilRouter;
 
+import base.PeriodicScheduler;
+
 public class App {
 
     private static MainRouter mainRouter = new MainRouter();
@@ -30,5 +32,11 @@ public class App {
         ui.setUiPorts();
         registerRouters();
         ui.start(mainRouter);
+
+        PeriodicScheduler scheduler = new PeriodicScheduler();
+        scheduler.setPeriodicInterval(30);
+        scheduler.setPeriodicLoop(new MyPeriodicLoop());
+        System.out.println("Starting periodic scheduler ...");
+        scheduler.start();
     }
 }
