@@ -14,7 +14,7 @@ public class App {
 
     // Register all routers here.
     private static void registerRouters() {
-        mainRouter.addRouter("level-devil", new LevelDevilRouter());
+        mainRouter.addRouter("leveldevil", new LevelDevilRouter());
     }
 
     // Allows all classes in the system to access content entities.
