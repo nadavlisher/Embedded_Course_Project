@@ -12,7 +12,7 @@ public class App {
 
     // Register all routers here.
     private static void registerRouters() {
-        mainRouter.addRouter("ex3", new Router());
+        mainRouter.addRouter("game", new Router());
     }
 
     // Allows all classes in the system to access content entities.

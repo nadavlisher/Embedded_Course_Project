@@ -25,7 +25,7 @@ public class AppContent {
 		return canvas;
 	}
 
-	public Backend ex3Backend() {
+	public Backend backend() {
 		return backend;
 	}
 

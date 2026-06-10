@@ -1,17 +1,17 @@
 package shared.ui_ports;
 
-public abstract class Ex3UiPort {
+public abstract class UiPort {
 
-    private static Ex3UiPort instance;
+    private static UiPort instance;
 
-    public static void setInstance(Ex3UiPort ui) {
-        if (ui == null) throw new IllegalArgumentException("Ex3UiPort instance cannot be null");
-        if (instance != null) throw new IllegalStateException("Ex3UiPort instance already set");
+    public static void setInstance(UiPort ui) {
+        if (ui == null) throw new IllegalArgumentException("UiPort instance cannot be null");
+        if (instance != null) throw new IllegalStateException("UiPort instance already set");
         instance = ui;
     }
 
-    public static Ex3UiPort getInstance() {
-        if (instance == null) throw new IllegalStateException("Ex3UiPort instance not set yet");
+    public static UiPort getInstance() {
+        if (instance == null) throw new IllegalStateException("UiPort instance not set yet");
         return instance;
     }
 
@@ -24,6 +24,8 @@ public abstract class Ex3UiPort {
     public abstract void updateSpike(int x, int y, int width, int height, boolean visible, boolean dangerous);
 
     public abstract void setAttemptCount(int attemptCount);
+
+    public abstract void setLevelNumber(int levelNumber);
 
     public abstract void setWinState(boolean won);
 

@@ -1,16 +1,24 @@
 package team.model;
 
 /**
- * A dynamic trap object.
+ * A deterministic Level Devil style trap.
  *
- * Story implemented for Assignment 5:
- * When the player reaches a hidden trigger zone, the spike appears.
- * If the player touches it after it becomes dangerous, the level restarts.
+ * The spike starts hidden, appears when the player crosses the trigger X,
+ * then becomes dangerous after a short fixed delay. This keeps the trap
+ * surprising on the first attempt but learnable on retries.
  */
 public class Spike extends GameObject {
+    public enum State {
+        HIDDEN,
+        TRIGGERED,
+        DANGEROUS
+    }
+
+    private static final int ACTIVATION_DELAY_TICKS = 12;
+
     private final int triggerX;
-    private boolean visible;
-    private boolean dangerous;
+    private State state;
+    private int ticksSinceTriggered;
 
     public Spike(int x, int y, int width, int height, int triggerX) {
         super(x, y, width, height);
@@ -20,26 +28,38 @@ public class Spike extends GameObject {
 
     /**
      * Updates the trap state according to the player's location.
-     * This is the exact point where the dynamic behavior enters the model.
+     * This model-layer method owns the dynamic trap behavior.
      */
     public void update(Player player) {
-        if (!visible && player.getX() >= triggerX) {
-            visible = true;
-            dangerous = true;
+        if (state == State.HIDDEN && player.getX() >= triggerX) {
+            state = State.TRIGGERED;
+            ticksSinceTriggered = 0;
+            return;
+        }
+
+        if (state == State.TRIGGERED) {
+            ticksSinceTriggered++;
+            if (ticksSinceTriggered >= ACTIVATION_DELAY_TICKS) {
+                state = State.DANGEROUS;
+            }
         }
     }
 
     public void reset() {
-        visible = false;
-        dangerous = false;
+        state = State.HIDDEN;
+        ticksSinceTriggered = 0;
     }
 
     public boolean isVisible() {
-        return visible;
+        return state != State.HIDDEN;
     }
 
     public boolean isDangerous() {
-        return dangerous;
+        return state == State.DANGEROUS;
+    }
+
+    public State getState() {
+        return state;
     }
 
     public int getTriggerX() {

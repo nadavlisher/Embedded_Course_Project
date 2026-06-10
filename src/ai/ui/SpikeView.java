@@ -2,7 +2,7 @@ package ai.ui;
 
 /**
  * Lightweight view data object for drawing a spike.
- * The UI receives this from Ex3UiPortImpl and draws it in DrawingPanel.
+ * The UI receives this from UiPortImpl and draws it in DrawingPanel.
  */
 public class SpikeView {
     public final int x;

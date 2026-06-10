@@ -4,7 +4,7 @@ import javax.swing.*;
 
 import my_base.App;
 import shared.MainRouter;
-import shared.ui_ports.Ex3UiPort;
+import shared.ui_ports.UiPort;
 
 import java.awt.*;
 
@@ -27,7 +27,7 @@ public class Ui {
         startGameLoop();
         
         SwingUtilities.invokeLater(() -> {
-            mainRouter.route("/ex3/start", base.Params.of());
+            mainRouter.route("/game/start", base.Params.of());
         });
     }
 
@@ -36,7 +36,7 @@ public class Ui {
             return;
         }
 
-        gameLoopTimer = new Timer(GAME_LOOP_MS, e -> mainRouter.route("/ex3/tick", base.Params.of()));
+        gameLoopTimer = new Timer(GAME_LOOP_MS, e -> mainRouter.route("/game/tick", base.Params.of()));
         gameLoopTimer.start();
     }
 
@@ -50,7 +50,7 @@ public class Ui {
         frame.add(drawingPanel, BorderLayout.CENTER);
 
         uiInstance = new UiPortImpl(drawingPanel);
-        Ex3UiPort.setInstance(uiInstance);
+        UiPort.setInstance(uiInstance);
 
         frame.setVisible(true);
         SwingUtilities.invokeLater(() -> drawingPanel.requestFocusInWindow());

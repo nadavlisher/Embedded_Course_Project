@@ -1,6 +1,6 @@
 package team.control;
 
-import shared.ui_ports.Ex3UiPort;
+import shared.ui_ports.UiPort;
 import team.model.Canvas;
 import team.model.Door;
 import team.model.GameLevel;
@@ -9,7 +9,7 @@ import team.model.Spike;
 
 public class Backend {
     private final Canvas canvas;
-    private Ex3UiPort ui;
+    private UiPort ui;
 
     private boolean started;
     private boolean winMessageAlreadySent;
@@ -24,7 +24,7 @@ public class Backend {
         this.winMessageAlreadySent = false;
     }
 
-    public void setUiPort(Ex3UiPort ui) {
+    public void setUiPort(UiPort ui) {
         this.ui = ui;
     }
 
@@ -104,6 +104,7 @@ public class Backend {
         );
 
         ui.setAttemptCount(level.getAttemptCount());
+        ui.setLevelNumber(level.getLevelNumber());
         ui.setWinState(level.isWon());
     }
 

@@ -9,9 +9,11 @@ package team.model;
  * - Run the per-frame game logic in tick().
  */
 public class GameLevel {
+    private static final int LEVEL_NUMBER = 1;
     private static final int WORLD_WIDTH = 900;
     private static final int WORLD_HEIGHT = 520;
     private static final int FLOOR_Y = 445;
+    private static final int DEATH_PLANE_Y = WORLD_HEIGHT + 80;
 
     private Player player;
     private Door door;
@@ -44,8 +46,7 @@ public class GameLevel {
         this.player = new Player(70, FLOOR_Y - 48, 34, 48);
         this.door = new Door(790, FLOOR_Y - 82, 48, 82);
 
-        // The spike is located on the floor at x=395.
-        // It becomes visible when the player reaches x=300.
+        // The spike is located on the floor at x=395 and wakes up at x=300.
         this.spike = new Spike(395, FLOOR_Y - 34, 44, 34, 300);
 
         this.moveLeft = false;
@@ -55,8 +56,8 @@ public class GameLevel {
     }
 
     /**
-     * Restart caused by a dangerous collision.
-     * The attempt counter is kept and incremented, because this is part of the gameplay feedback.
+     * Restart caused by death/disqualification.
+     * The attempt counter is kept and incremented for gameplay feedback.
      */
     private void restartAfterDeath() {
         attemptCount++;
@@ -69,20 +70,21 @@ public class GameLevel {
         }
 
         player.tick(moveLeft, moveRight, FLOOR_Y, WORLD_WIDTH);
-
-        // Dynamic object update: the spike reacts to player location.
         spike.update(player);
 
-        // Loss condition: the player touches an active dangerous spike.
-        if (spike.isDangerous() && player.intersects(spike)) {
+        if (isPlayerDisqualified()) {
             restartAfterDeath();
             return;
         }
 
-        // Win condition: the player reaches the door.
         if (player.intersects(door)) {
             won = true;
         }
+    }
+
+    private boolean isPlayerDisqualified() {
+        return player.getY() > DEATH_PLANE_Y
+            || (spike.isDangerous() && player.intersects(spike));
     }
 
     public void setMoveLeft(boolean moveLeft) {
@@ -115,6 +117,10 @@ public class GameLevel {
 
     public int getAttemptCount() {
         return attemptCount;
+    }
+
+    public int getLevelNumber() {
+        return LEVEL_NUMBER;
     }
 
     public int getWorldWidth() {

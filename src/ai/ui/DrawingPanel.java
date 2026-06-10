@@ -117,7 +117,8 @@ public class DrawingPanel extends JPanel {
     private void drawHud(Graphics2D g2) {
         g2.setFont(new Font("Arial", Font.BOLD, 18));
         g2.setColor(Color.WHITE);
-        g2.drawString("Attempts: " + gameUiPort.getAttemptCount(), 24, 34);
+        g2.drawString("Level: " + gameUiPort.getLevelNumber(), 24, 34);
+        g2.drawString("Attempts: " + gameUiPort.getAttemptCount(), 24, 58);
     }
 
     private void drawWinText(Graphics2D g2) {
@@ -133,19 +134,19 @@ public class DrawingPanel extends JPanel {
     private void setupKeyboard() {
         setFocusable(true);
 
-        bindBooleanKey("pressed LEFT", "/ex3/player/left", true);
-        bindBooleanKey("released LEFT", "/ex3/player/left", false);
-        bindBooleanKey("pressed A", "/ex3/player/left", true);
-        bindBooleanKey("released A", "/ex3/player/left", false);
+        bindBooleanKey("pressed LEFT", "/game/player/left", true);
+        bindBooleanKey("released LEFT", "/game/player/left", false);
+        bindBooleanKey("pressed A", "/game/player/left", true);
+        bindBooleanKey("released A", "/game/player/left", false);
 
-        bindBooleanKey("pressed RIGHT", "/ex3/player/right", true);
-        bindBooleanKey("released RIGHT", "/ex3/player/right", false);
-        bindBooleanKey("pressed D", "/ex3/player/right", true);
-        bindBooleanKey("released D", "/ex3/player/right", false);
+        bindBooleanKey("pressed RIGHT", "/game/player/right", true);
+        bindBooleanKey("released RIGHT", "/game/player/right", false);
+        bindBooleanKey("pressed D", "/game/player/right", true);
+        bindBooleanKey("released D", "/game/player/right", false);
 
-        bindSimpleKey("pressed SPACE", "/ex3/player/jump");
-        bindSimpleKey("pressed W", "/ex3/player/jump");
-        bindSimpleKey("pressed UP", "/ex3/player/jump");
+        bindSimpleKey("pressed SPACE", "/game/player/jump");
+        bindSimpleKey("pressed W", "/game/player/jump");
+        bindSimpleKey("pressed UP", "/game/player/jump");
     }
 
     private void bindBooleanKey(String keyStrokeText, String route, boolean pressed) {

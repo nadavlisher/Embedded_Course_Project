@@ -1,12 +1,12 @@
 package ai.ui;
 
-import shared.ui_ports.Ex3UiPort;
+import shared.ui_ports.UiPort;
 
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import java.awt.Rectangle;
 
-public class UiPortImpl extends Ex3UiPort {
+public class UiPortImpl extends UiPort {
     private final JPanel panel;
     private final DrawingPanel drawingPanel;
 
@@ -19,6 +19,7 @@ public class UiPortImpl extends Ex3UiPort {
     private String backgroundName = "level1";
     private boolean won = false;
     private int attemptCount = 1;
+    private int levelNumber = 1;
 
     public UiPortImpl(DrawingPanel drawingPanel) {
         this.panel = drawingPanel;
@@ -70,6 +71,14 @@ public class UiPortImpl extends Ex3UiPort {
     }
 
     @Override
+    public void setLevelNumber(int levelNumber) {
+        runOnEdt(() -> {
+            this.levelNumber = levelNumber;
+            repaintPanel();
+        });
+    }
+
+    @Override
     public void setWinState(boolean won) {
         runOnEdt(() -> {
             this.won = won;
@@ -116,6 +125,10 @@ public class UiPortImpl extends Ex3UiPort {
 
     public int getAttemptCount() {
         return attemptCount;
+    }
+
+    public int getLevelNumber() {
+        return levelNumber;
     }
 
     private void repaintPanel() {

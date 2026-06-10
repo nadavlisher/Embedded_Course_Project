@@ -34,8 +34,8 @@ public class Router implements SubRouter {
                 backend.jump();
                 return null;
             default:
-				System.err.println("Unknown ex3 route: " + route + " (raw: " + subPath + ")");
-				throw new RuntimeException("Unknown ex3 route: " + route);
+				System.err.println("Unknown game route: " + route + " (raw: " + subPath + ")");
+				throw new RuntimeException("Unknown game route: " + route);
         }
     }
 
