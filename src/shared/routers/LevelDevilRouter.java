@@ -18,25 +18,27 @@ public class LevelDevilRouter implements SubRouter {
         String route = normalizeRoute(subPath);
 
         switch (route) {
-            case "/start":
-                backend.startGame();
-                return null;
+            case "/start":            backend.start();            return null;
+            case "/menu/show":        backend.showMainMenu();     return null;
+            case "/menu/levels":      backend.openLevelSelect();  return null;
+            case "/menu/scores":      backend.openHighScores();   return null;
 
-            case "/tick":
-                backend.tick();
-                return null;
+            case "/game/start":       backend.startNewGame();     return null;
+            case "/game/restart":     backend.restart();          return null;
 
-            case "/player/left":
-                backend.setMoveLeft(p.getBoolean(0));
-                return null;
+            case "/level/select":     backend.selectLevel(p.getInt(0)); return null;
+            case "/level/next":       backend.jumpToNextLevel();  return null;
 
-            case "/player/right":
-                backend.setMoveRight(p.getBoolean(0));
-                return null;
+            case "/player/move":      backend.setMoveDir(p.getInt(0)); return null;
+            case "/player/jump":      backend.jump();             return null;
+            case "/game/tick":        backend.tick();             return null;
 
-            case "/player/jump":
-                backend.jump();
-                return null;
+            case "/audio/toggleMute": backend.toggleMute();       return null;
+
+            case "/name/type":        backend.typeNameChar(p.getString(0)); return null;
+            case "/name/backspace":   backend.nameBackspace();    return null;
+            case "/name/submit":      backend.submitName();       return null;
+
                 
             default:
 				System.err.println("Unknown Level Devil route: " + route + " (raw: " + subPath + ")");
