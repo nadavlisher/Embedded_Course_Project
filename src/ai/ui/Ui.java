@@ -27,7 +27,7 @@ public class Ui {
         startGameLoop();
         
         SwingUtilities.invokeLater(() -> {
-            mainRouter.route("/game/start", base.Params.of());
+            mainRouter.route("/game/menu", base.Params.of());
         });
     }
 

@@ -27,6 +27,10 @@ public class Player extends GameObject {
     }
 
     public void tick(boolean moveLeft, boolean moveRight, int floorY, int worldWidth) {
+        tick(moveLeft, moveRight, floorY, worldWidth, floorY);
+    }
+
+    public void tick(boolean moveLeft, boolean moveRight, int normalFloorY, int worldWidth, int activeFloorY) {
         vx = 0;
 
         if (moveLeft) {
@@ -55,11 +59,11 @@ public class Player extends GameObject {
             x = worldWidth - width;
         }
 
-        // Floor collision.
-        if (y + height >= floorY) {
-            y = floorY - height;
+        // Floor collision. GameLevel may lower activeFloorY to create a temporary gap.
+        if (y + height >= activeFloorY) {
+            y = activeFloorY - height;
             vy = 0;
-            onGround = true;
+            onGround = activeFloorY == normalFloorY;
         } else {
             onGround = false;
         }

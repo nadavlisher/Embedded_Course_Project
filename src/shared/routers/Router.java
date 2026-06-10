@@ -18,6 +18,21 @@ public class Router implements SubRouter {
         String route = normalizeRoute(subPath);
 
         switch (route) {
+            case "/menu":
+                backend.showMainMenu();
+                return null;
+            case "/menu/start":
+                backend.startGame();
+                return null;
+            case "/menu/level-select":
+                backend.showLevelSelect();
+                return null;
+            case "/menu/exit":
+                backend.exitGame();
+                return null;
+            case "/level/select":
+                backend.startLevel(p.getInt(0));
+                return null;
             case "/start":
                 backend.startGame();
                 return null;

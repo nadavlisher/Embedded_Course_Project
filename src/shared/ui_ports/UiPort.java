@@ -1,5 +1,8 @@
 package shared.ui_ports;
 
+import team.control.GameScreen;
+import team.model.LevelState;
+
 public abstract class UiPort {
 
     private static UiPort instance;
@@ -22,6 +25,14 @@ public abstract class UiPort {
     public abstract void updateDoor(int x, int y, int width, int height);
 
     public abstract void updateSpike(int x, int y, int width, int height, boolean visible, boolean dangerous);
+
+    public abstract void updateSpikes(int[] x, int[] y, int[] width, int[] height, boolean[] visible, boolean[] dangerous);
+
+    public abstract void updateDisappearingFloors(int[] x, int[] y, int[] width, int[] height, String[] states);
+
+    public abstract void setScreen(GameScreen screen);
+
+    public abstract void setLevelStates(LevelState[] levelStates);
 
     public abstract void setAttemptCount(int attemptCount);
 

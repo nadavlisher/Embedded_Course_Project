@@ -1,6 +1,8 @@
 package ai.ui;
 
 import shared.ui_ports.UiPort;
+import team.control.GameScreen;
+import team.model.LevelState;
 
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -12,7 +14,10 @@ public class UiPortImpl extends UiPort {
 
     private Rectangle player;
     private Rectangle door;
-    private SpikeView spike;
+    private SpikeView[] spikes = new SpikeView[0];
+    private DisappearingFloorView[] disappearingFloors = new DisappearingFloorView[0];
+    private GameScreen screen = GameScreen.MAIN_MENU;
+    private LevelState[] levelStates = new LevelState[0];
     private int worldWidth = 900;
     private int worldHeight = 520;
     private int floorY = 445;
@@ -56,8 +61,52 @@ public class UiPortImpl extends UiPort {
 
     @Override
     public void updateSpike(int x, int y, int width, int height, boolean visible, boolean dangerous) {
+        updateSpikes(
+            new int[] { x },
+            new int[] { y },
+            new int[] { width },
+            new int[] { height },
+            new boolean[] { visible },
+            new boolean[] { dangerous }
+        );
+    }
+
+    @Override
+    public void updateSpikes(int[] x, int[] y, int[] width, int[] height, boolean[] visible, boolean[] dangerous) {
         runOnEdt(() -> {
-            this.spike = new SpikeView(x, y, width, height, visible, dangerous);
+            SpikeView[] nextSpikes = new SpikeView[x.length];
+            for (int i = 0; i < x.length; i++) {
+                nextSpikes[i] = new SpikeView(x[i], y[i], width[i], height[i], visible[i], dangerous[i]);
+            }
+            this.spikes = nextSpikes;
+            repaintPanel();
+        });
+    }
+
+    @Override
+    public void updateDisappearingFloors(int[] x, int[] y, int[] width, int[] height, String[] states) {
+        runOnEdt(() -> {
+            DisappearingFloorView[] nextFloors = new DisappearingFloorView[x.length];
+            for (int i = 0; i < x.length; i++) {
+                nextFloors[i] = new DisappearingFloorView(x[i], y[i], width[i], height[i], states[i]);
+            }
+            this.disappearingFloors = nextFloors;
+            repaintPanel();
+        });
+    }
+
+    @Override
+    public void setScreen(GameScreen screen) {
+        runOnEdt(() -> {
+            this.screen = screen;
+            repaintPanel();
+        });
+    }
+
+    @Override
+    public void setLevelStates(LevelState[] levelStates) {
+        runOnEdt(() -> {
+            this.levelStates = levelStates.clone();
             repaintPanel();
         });
     }
@@ -100,7 +149,23 @@ public class UiPortImpl extends UiPort {
     }
 
     public SpikeView getSpike() {
-        return spike;
+        return spikes.length == 0 ? null : spikes[0];
+    }
+
+    public SpikeView[] getSpikes() {
+        return spikes.clone();
+    }
+
+    public DisappearingFloorView[] getDisappearingFloors() {
+        return disappearingFloors.clone();
+    }
+
+    public GameScreen getScreen() {
+        return screen;
+    }
+
+    public LevelState[] getLevelStates() {
+        return levelStates.clone();
     }
 
     public int getWorldWidth() {

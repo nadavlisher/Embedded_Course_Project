@@ -11,6 +11,14 @@ public class Canvas {
         return level;
     }
 
+    public void loadLevel(int levelNumber) {
+        level.loadLevel(levelNumber);
+    }
+
+    public void resetCurrentLevel() {
+        level.resetCurrentLevel();
+    }
+
     public void initCanvas() {
         level.reset();
     }
