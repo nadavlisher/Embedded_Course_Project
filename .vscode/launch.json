@@ -9,6 +9,13 @@
             "name": "App",
             "request": "launch",
             "mainClass": "my_base.App",
+            "projectName": "System_e111066a"
+        },
+        {
+            "type": "java",
+            "name": "App",
+            "request": "launch",
+            "mainClass": "my_base.App",
             "projectName": "Embedded_Course_Project_fe479115"
         },
         {
